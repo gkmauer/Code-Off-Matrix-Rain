@@ -11,7 +11,7 @@ public class Drop {
 
     Drop(int x) {
         this.x = x;
-        length = getRandomInteger(5, 30);
+        length = getRandomInteger(9, word1.length());
         text = createContent(length);
         velocity = getRandomInteger(1, 5);
         this.y = (-1) * length * Config.FONT_SIZE;
@@ -20,7 +20,7 @@ public class Drop {
     protected char[][] createContent(int length) {
         char[][] result = new char[length][1];
         for (int i = 0; i < result.length; i++) {
-            result[i][0] = getRandomCharacter();
+            result[i][0] = getRandomCharacter(i);
         }
         return result;
     }
@@ -29,8 +29,8 @@ public class Drop {
         int fontSize = g2.getFont().getSize();
         for (int i = 0; i < length; i++) {
             if (getRandomInteger(0, length) == i)
-                text[i][0] = getRandomCharacter();
-            if (i == length - 1)
+                text[i][0] = getRandomCharacter(i);
+            if (i == 0)
                 g2.setColor(new Color(253, 104, 25));
             else
                 g2.setColor(new Color(66, 198, 255));
@@ -39,8 +39,11 @@ public class Drop {
         y += velocity;
     }
 
-    public char getRandomCharacter() {
-        return (char) (rng.nextInt(26) + 'a');
+    private String word1 = "entelect challenge 2016";
+
+    public char getRandomCharacter(int i) {
+        return word1.charAt(i);
+        //return (char) (rng.nextInt(26) + 'a');
     }
 
     public int getRandomInteger(int min, int max) {
